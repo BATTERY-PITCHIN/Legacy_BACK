@@ -15,3 +15,6 @@ using django
 
 `$ pitchin\Script\activate`
 
+- manage pakage
+
+`$ python install requirments.txt`
