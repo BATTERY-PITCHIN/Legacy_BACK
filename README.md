@@ -3,14 +3,15 @@ using django
 
 ## HOW TO USE
 
-$ git clone
+`$ git clone`
 
-$ virtualenv pitchin
+`$ virtualenv pitchin`
 
-if linux
+- if linux
 
-$ source pitchin/Script/activate
+`$ source pitchin/Script/activate`
 
-if Window
+- if Window
 
-$ pitchin\Script\activate
+`$ pitchin\Script\activate`
+
