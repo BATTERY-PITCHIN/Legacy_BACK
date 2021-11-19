@@ -29,8 +29,10 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+# 태홍, 채팅 구현하기 위한 channels모듈과 chat앱 추가, 2021.11.19
 INSTALLED_APPS = [
+    'channels',
+    'chat',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -74,6 +76,17 @@ TEMPLATES = [
         },
     },
 ]
+
+# 태홍, 채팅 구현위한 asgi 프로토콜 사용, 21.11.19
+ASGI_APPLICATION = 'project.routing.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
