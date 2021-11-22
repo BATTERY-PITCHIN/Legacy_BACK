@@ -11,5 +11,3 @@
 ## HOW TO USE
 
 For more information, check HOWTOUSE file
-
-[**SEE HOWTOUSE.MD FILE**](pitchin_back/HOWTOUSE.md)
