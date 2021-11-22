@@ -1,41 +1,15 @@
-# PITCHIN BACKEND
+# PITCH-IN BACKEND
 
-using django
+**PITCH-IN**은 소자본 창업주와 공장주를 연결해 주는 서비스 입니다.
+
+## SYSTEM OVERVIEW IN BACKEND
+
+> hosting: aws-ec2
+
+> server framework: django-restful-api
 
 ## HOW TO USE
 
-`$ git clone`
+For more information, check HOWTOUSE file
 
-`$ virtualenv pitchin`
-
-or
-
-`$ python -m virtualenv pitchin`
-
-- if linux
-
-`$ source pitchin/Script/activate`
-
-- if Window
-
-`$ pitchin\Script\activate`
-
-- manage pakage / install list
-
-`$ python install -m requirments.txt`
-
-- install redis
-
-  - if linux
-
-  `$ brew install redis`
-
-  - if window
-
-  [!redis](https://github.com/microsoftarchive/redis)
-
-  for this pakage => v3.0
-
-  - U should service start redis
-
-  `$ brew services start redis`
+[**SEE HOWTOUSE.MD FILE**](pitchin_back\HOWTOUSE.md)
