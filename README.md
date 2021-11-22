@@ -8,6 +8,10 @@ using django
 
 `$ virtualenv pitchin`
 
+or
+
+`$ python -m virtualenv pitchin`
+
 - if linux
 
 `$ source pitchin/Script/activate`
@@ -18,21 +22,20 @@ using django
 
 - manage pakage / install list
 
-`$ python install requirments.txt`
+`$ python install -m requirments.txt`
 
 - install redis
 
-    - if linux
+  - if linux
 
-    `$ brew install redis`
+  `$ brew install redis`
 
-    - if window
+  - if window
 
-    [!redis](https://github.com/microsoftarchive/redis)
+  [!redis](https://github.com/microsoftarchive/redis)
 
-    for this pakage => v3.0
+  for this pakage => v3.0
 
-    * U should service start redis
+  - U should service start redis
 
-    `$ brew services start redis`
-    
+  `$ brew services start redis`
