@@ -5,17 +5,41 @@ from . serializer import *
 from rest_framework.response import Response
 
 # Create your views here.
-class ReactView(APIView):
+class FounderView(APIView):
     def get(self, request):
         output = [
-            {"employee": output.employee, 
-            "department": output.department}
-        for output in React.objects.all()]
+            {"id": output.id, 
+            "name": output.name}
+        for output in Founder.objects.all()]
 
-        return Response(output)
+        return Response(output, status=200)
 
     def post(self, request):
-        serializer = ReactSerializer(data=request.data)
+        serializer = FounderSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)
+
+    def put(self, request): ...
+
+    def delete(self, request): ...
+
+
+class FactoryView(APIView):
+    def get(self, request):
+        output = [
+            {"id": output.id, 
+            "name": output.name}
+        for output in Factory.objects.all()]
+
+        return Response(output, status=200)
+
+    def post(self, request):
+        serializer = FactorySerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
+
+    def put(self, request): ...
+
+    def delete(self, request): ...
