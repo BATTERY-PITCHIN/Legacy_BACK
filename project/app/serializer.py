@@ -21,8 +21,8 @@ class FactoryInfoSerializer(serializers.ModelSerializer):
         model = FactoryInfo
         fields = '__all__'
 
-class ConnectedSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Connected
-        fields = '__all__'
+# class ConnectedSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Connected
+#         fields = ['__all__']
 

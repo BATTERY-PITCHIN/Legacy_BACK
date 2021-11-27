@@ -20,9 +20,11 @@ class FounderView(APIView):
             serializer.save()
             return Response(serializer.data)
 
-    def put(self, request): ...
+    def put(self, request):
+        NotImplementedError
 
-    def delete(self, request): ...
+    def delete(self, request):
+        NotImplementedError
 
 
 class FactoryView(APIView):
@@ -40,6 +42,8 @@ class FactoryView(APIView):
             serializer.save()
             return Response(serializer.data)
 
-    def put(self, request): ...
+    def put(self, request):
+        NotImplementedError
 
-    def delete(self, request): ...
+    def delete(self, request):
+        NotImplementedError

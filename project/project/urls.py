@@ -16,10 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 # from django.conf.urls import url
-from app.views import *
 
 urlpatterns = [
-    path('chat/', include('chat.urls')),
+    path('chat/', include('chat.urls'), name="chat"),
     path('admin/', admin.site.urls),
-    path('', ReactView.as_view(), name="anything"),
+    # path('', ReactView.as_view(), name="anything"),
+    path('', include('app.urls'), name="main"),
 ]
