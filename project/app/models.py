@@ -15,6 +15,8 @@ class Founder(models.Model):
     """
     name = models.CharField(help_text="Founder Name", \
         max_length=20, blank=False, null=False)
+    interest_keyword = models.CharField(help_text="Keyword1", \
+        max_length=10, blank=True)
     # 추후 모델에 추가할 내용
     # 이메일, 전화번호 등 인적사항들
 
@@ -27,6 +29,8 @@ class Factory(models.Model):
     """
     name = models.CharField(help_text="Factory Name", \
         max_length=20, blank=False, null=False)
+    interest_keyword = models.CharField(help_text="Keyword1", \
+        max_length=10, blank=True)
     # 대표자 이름, 이메일, H.P 등 인적사항, 홈페이지 등
 
 

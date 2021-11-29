@@ -18,7 +18,8 @@ class FounderView(APIView):
         serializer = FounderSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-            return Response(serializer.data)
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
 
     def put(self, request):
         NotImplementedError
@@ -40,10 +41,25 @@ class FactoryView(APIView):
         serializer = FactorySerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-            return Response(serializer.data)
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
 
     def put(self, request):
         NotImplementedError
 
     def delete(self, request):
         NotImplementedError
+
+"""
+**STATUS CODE**
+HTTP_200_OK
+HTTP_201_CREATED
+HTTP_202_ACCEPTED
+HTTP_203_NON_AUTHORITATIVE_INFORMATION
+HTTP_204_NO_CONTENT
+HTTP_205_RESET_CONTENT
+HTTP_206_PARTIAL_CONTENT
+HTTP_207_MULTI_STATUS
+HTTP_208_ALREADY_REPORTED
+HTTP_226_IM_USED
+"""
