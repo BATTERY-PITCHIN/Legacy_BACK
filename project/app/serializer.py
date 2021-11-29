@@ -11,14 +11,14 @@ class FactorySerializer(serializers.ModelSerializer):
         model = Factory
         fields = '__all__'
 
-class EstimateSerializer(serializers.ModelSerializer):
+class Founde_EstSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Estimate
+        model = Founder_Est
         fields = '__all__'
 
-class FactoryInfoSerializer(serializers.ModelSerializer):
+class Factory_IntrodSerializer(serializers.ModelSerializer):
     class Meta:
-        model = FactoryInfo
+        model = Factory_Introd
         fields = '__all__'
 
 # class ConnectedSerializer(serializers.ModelSerializer):
