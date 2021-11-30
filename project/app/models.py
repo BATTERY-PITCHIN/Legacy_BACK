@@ -28,8 +28,8 @@ class User(models.Model):
         blank=False,
         null=False
     )
-    phone_number = models.IntegerField(
-        help_text='H.P.',
+    phone_number = models.CharField(
+        help_text="phone number",
         max_length=12,
         blank=False,
         null=False
@@ -76,6 +76,8 @@ class FactoryOwner(User):
         help_text="address",
         max_length=50, 
     )
+    # 해당 카테고리는 공장의 범주로,
+    # 견적서의 카테고리와는 다름!!
     category = models.CharField(
         help_text="category of factory sales", 
         max_length=10, 
@@ -91,17 +93,17 @@ class ContactUsers(models.Model):
     공장주와 창업주간 컨택이 된 사람들을 관리하기위한 테이블
     :김태홍, 장성수, 21.11.30
     """
-    founder_id = models.ForeignKey(
+    founder = models.ForeignKey(
         "Founder",
-        related_name="founder id",
+        related_name="founder_id",
         on_delete=models.CASCADE,
-        db_column="founder_id"
+        db_column="founder"
     )
-    factory_owner_id = models.ForeignKey(
+    factoryOwner = models.ForeignKey(
         "FactoryOwner",
-        related_name="factory owner id",
+        related_name="factory_owner_id",
         on_delete=models.CASCADE,
-        db_column="factory_owner_id"
+        db_column="factoryOwner"
     )
     start_date = models.DateField(
         help_text="start date",
@@ -121,7 +123,7 @@ class FounderEstimate(models.Model):
 
         `견적서 데이터 베이스에 들어갈 내용`
 
-            estimate_owner: 견적서를 작성한 사람(창업주)
+            founder_id: 견적서를 작성한 사람(창업주)
             title: 견적서 이름
             item_name: 물건 이름 (ex. lipstick)
             category: 견적서 내용의 범주 (ex. Beauty)
@@ -132,9 +134,9 @@ class FounderEstimate(models.Model):
 
         :김태홍, 장성수, 21.11.30
     """
-    estimate_owner = models.ForeignKey(
+    founder_id = models.ForeignKey(
         "Founder",
-        related_name="founder id",
+        related_name="founder",
         on_delete=models.CASCADE,
         db_column="founder_id"
     )
@@ -182,7 +184,7 @@ class FactoryInformation(models.Model):
 
         `공장 소개 데이터 베이스에 들어갈 내용`
 
-            information_owner: 공장 소개글을 작성한 사람(공장주)
+            factoryowner_id: 공장 소개글을 작성한 사람(공장주)
             title: 견적서 이름
             content: 견적서 내용의 범주 (ex. Beauty)
             date: 작성일
@@ -190,11 +192,11 @@ class FactoryInformation(models.Model):
 
         :김태홍, 장성수, 21.11.30
     """
-    information_owner = models.ForeignKey(
+    factoryowner_id = models.ForeignKey(
         "FactoryOwner",
-        related_name="factory owner id",
+        related_name="factoryowner",
         on_delete=models.CASCADE,
-        db_column="factory_owner_id"
+        db_column="factoryowner_id"
     )
     title = models.CharField(
         help_text="estimate title",
@@ -223,11 +225,11 @@ class KeywordList(models.Model):
     유저들의 관심사를 키워드로 저장
     :김태홍, 장성수, 21.11.30
     """
-    regist_user = models.ForeignKey(
+    user_id = models.ForeignKey(
         "User",
-        related_name="registered by user and user id",
+        related_name="user",
         on_delete=models.CASCADE,
-        db_column="factory_owner_id"
+        db_column="user_id"
     )
     keyword = models.CharField(
         help_text="keyword for recommandation",
