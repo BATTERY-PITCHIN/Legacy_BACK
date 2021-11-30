@@ -235,3 +235,9 @@ class KeywordList(models.Model):
         max_length=20,
         # null=False
     )
+    job = models.CharField(
+        help_text="FactoryOwner or Founder",
+        max_length=10,
+        null=False,
+        blank=False
+    )

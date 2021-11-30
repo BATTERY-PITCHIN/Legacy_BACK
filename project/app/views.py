@@ -61,11 +61,21 @@ class KeywordView(APIView):
         
 
 class RecommendView(APIView):
-    def get(self, request, pk):
-        keyword = KeywordList.objects.all()
+    def get(self, request, user_id):
+        keyword = KeywordList.objects.filter(user_id=user_id)
         serializer = KeywordSerializer(keyword, many=True)
-        print()
-        return Response(serializer.data, status=200)
+        for data in serializer.data:
+            if data['job'] == 'F':  # Founder
+                list = FactoryInformation.objects.filter(keyword=data['keyword'])
+                result = ListFactoryInfoSerializer(list, many=True)
+                return Response(result.data, status=200)
+            elif data['job'] == 'FO':  # Factory Owner
+                list = FounderEstimate.objects.filter(keyword=data['keyword'])
+                result = ListFoundeEstSerializer(list, many=True)
+                return Response(result.data, status=200)
+            else:
+                return Response(status=500)
+        return Response(status=200)
 
 
 
