@@ -1,87 +1,235 @@
+# NOTE: 소프트웨어공학 드라이브에 있는 PITCH-IN:ERD Diagram을 기반으로 작성했습니다!! 21.11.30
+
 from django.db import models
 
-# Create your models here.
-# basic code
-# class React(models.Model):
-#     employee = models.CharField(max_length=30)
-#     department = models.CharField(max_length=200)
+class User(models.Model):
+    """
+    `유저 통합 모델 클래스`
+
+    유저 모델을 베이스로 창업주와 공장주 테이블을 상속
+    :김태홍,2021.11.30
+    """
+    id = models.CharField(
+        help_text="User ID",
+        max_length=20,
+        blank=False,
+        null=False,
+        primary_key=True
+    )
+    password = models.CharField(
+        help_text="User Password",
+        max_length=20,
+        blank=False,
+        null=False
+    )
+    name = models.CharField(
+        help_text="Founder Name",
+        max_length=20,
+        blank=False,
+        null=False
+    )
+    phone_number = models.IntegerField(
+        help_text='H.P.',
+        max_length=12,
+        blank=False,
+        null=False
+    )
+    mail = models.CharField(
+        help_text="E-Mail",
+        max_length=20,
+        blank=False,
+        null=False
+    )
+    # 사업자 번호(숫자), 계좌번호(숫자) 추가 요망
 
 
-class Founder(models.Model): 
+class Founder(User): 
     """
-    창업주 테이블
-    작성자: 김태홍
-    날짜: 2021.11.25
+    `창업주 테이블`
+
+    User 테이블을 상속받아 창업주로부터 필요한 데이터 저장
+    :김태홍, 장성수, 21.11.30
     """
-    name = models.CharField(help_text="Founder Name", \
-        max_length=20, blank=False, null=False)
-    interest_keyword = models.CharField(help_text="Keyword1", \
-        max_length=10, blank=True)
-    # 추후 모델에 추가할 내용
-    # 이메일, 전화번호 등 인적사항들
+    corporate_name = models.CharField(
+        help_text="corporate Name",
+        max_length=20,
+        blank=False,
+        null=False
+    )
+    # 사업자 등록증(이미지), 법인 인감 증명서(이미지), 계좌번호(숫자) 추가 요망
 
 
-class Factory(models.Model):
+class FactoryOwner(User):
     """
-    공장 테이블
-    작성자: 김태홍
-    날짜: 2021.11.25
+    `공장주 테이블`
+
+    User 테이블을 상속받아 공장주로부터 필요한 데이터 저장
+    :김태홍, 장성수, 21.11.30
     """
-    name = models.CharField(help_text="Factory Name", \
-        max_length=20, blank=False, null=False)
-    interest_keyword = models.CharField(help_text="Keyword1", \
-        max_length=10, blank=True)
-    # 대표자 이름, 이메일, H.P 등 인적사항, 홈페이지 등
+    company_name = models.CharField(
+        help_text="company Name",
+        max_length=20, 
+        blank=False, 
+        null=False
+    )
+    address = models.CharField(
+        help_text="address",
+        max_length=50, 
+    )
+    category = models.CharField(
+        help_text="category of factory sales", 
+        max_length=10, 
+        blank=True
+    )
+    # 공장 등록 번호(숫자) 추후 추가 요망
 
 
-class Founder_Est(models.Model):
+class ContactUsers(models.Model):
     """
-    견적서 테이블: 창업주가 작성한 견적서
-    작성자: 김태홍
-    날짜: 2021.11.25
+    `컨택 테이블`
+
+    공장주와 창업주간 컨택이 된 사람들을 관리하기위한 테이블
+    :김태홍, 장성수, 21.11.30
     """
-    founder_id = models.ForeignKey("Founder", related_name="founder_est", \
-        on_delete=models.CASCADE, db_column="founder_id")
-    title = models.CharField(help_text="Estimate Title", \
-        max_length=200, blank=False, null=False)
-    contents = models.TextField(help_text="Estimate Contents", \
-        blank=False, null=False)
-    keyword1 = models.CharField(help_text="Keyword1", \
-        max_length=10, blank=True)
-    keyword2 = models.CharField(help_text="Keyword2", \
-        max_length=10, blank=True)
-    keyword3 = models.CharField(help_text="Keyword3", \
-        max_length=10, blank=True)
+    founder_id = models.ForeignKey(
+        "Founder",
+        related_name="founder id",
+        on_delete=models.CASCADE,
+        db_column="founder_id"
+    )
+    factory_owner_id = models.ForeignKey(
+        "FactoryOwner",
+        related_name="factory owner id",
+        on_delete=models.CASCADE,
+        db_column="factory_owner_id"
+    )
+    start_date = models.DateField(
+        help_text="start date",
+        blank=False,
+        null=False
+    )
+    end_date  = models.DateField(
+        help_text="end date"
+    )
+
+
+class FounderEstimate(models.Model):
+    """
+        `견적서 테이블`
+        
+            창업주가 작성한 견적서
+
+        `견적서 데이터 베이스에 들어갈 내용`
+
+            estimate_owner: 견적서를 작성한 사람(창업주)
+            title: 견적서 이름
+            item_name: 물건 이름 (ex. lipstick)
+            category: 견적서 내용의 범주 (ex. Beauty)
+            item_quantity: 물건 발주 필요 수량
+            date: 작성일
+            Keyword: 추천시 필요한 keyward
+            content: 추가 설명
+
+        :김태홍, 장성수, 21.11.30
+    """
+    estimate_owner = models.ForeignKey(
+        "Founder",
+        related_name="founder id",
+        on_delete=models.CASCADE,
+        db_column="founder_id"
+    )
+    title = models.CharField(
+        help_text="estimate title",
+        max_length=30,
+        blank=False,
+        null=False 
+    )
+    item_name = models.CharField(
+        help_text="item name",
+        max_length=20, 
+        blank=False,
+        null=False
+    )
+    category = models.CharField(
+        help_text="item category",
+        max_length=20, 
+        blank=False,
+        null=False
+    )
+    item_quantity = models.IntegerField(
+        help_text='item order quantity',
+        blank=False,
+        null=False
+    )
+    date = models.DateField(
+        help_text="upload date",
+        auto_now_add=True
+    )
+    keyword = models.CharField(
+        help_text="keyword for recommandation",
+        max_length=20
+    )
+    content = models.TextField(
+        help_text="Informations of factory",
+    )
     
 
-class Factory_Introd(models.Model):
+class FactoryInformation(models.Model):
     """
-    공장 소개 테이블
-    작성자: 김태홍
-    날짜: 2021.11.25
+        `공장 소개 테이블`
+
+            창업주가 작성한 공장 소개 글 저장 클래스
+
+        `공장 소개 데이터 베이스에 들어갈 내용`
+
+            information_owner: 공장 소개글을 작성한 사람(공장주)
+            title: 견적서 이름
+            content: 견적서 내용의 범주 (ex. Beauty)
+            date: 작성일
+            Keyword: 추천시 필요한 keyward
+
+        :김태홍, 장성수, 21.11.30
     """
-    # id, 제품, 장소, 소개글, 산업 분야(키워드),   
-    factory_id = models.ForeignKey("Factory", related_name="factory_introd",\
-        on_delete=models.CASCADE)#related_name이 Factory_introd로 해야하는거아님?
-    title = models.CharField(help_text="Introduction Title", \
-        max_length=200, blank=False, null=False)
-    contents = models.TextField(help_text="Introduction Contents", \
-        blank=False, null=False)
-    keyword1 = models.CharField(help_text="Keyword1", \
-        max_length=10, blank=True)
-    keyword2 = models.CharField(help_text="Keyword2", \
-        max_length=10, blank=True)
-    keyword3 = models.CharField(help_text="Keyword3", \
-        max_length=10, blank=True)
+    information_owner = models.ForeignKey(
+        "FactoryOwner",
+        related_name="factory owner id",
+        on_delete=models.CASCADE,
+        db_column="factory_owner_id"
+    )
+    title = models.CharField(
+        help_text="estimate title",
+        max_length=30,
+        blank=False,
+        null=False 
+    )
+    content = models.TextField(
+        help_text="Informations of factory",
+    )
+    # thumbnail 이미지 추가 추후 개발 요망
+    date = models.DateField(
+        help_text="upload date",
+        auto_now_add=True
+    )
+    keyword = models.CharField(
+        help_text="keyword for recommandation",
+        max_length=20
+    )
 
 
+class KeywordList(models.Model):
+    """
+    `키워드 테이블`
 
-# class Connected(models.Model): 
-#     """
-#     매칭된 테이블
-#     
-#     """
-
-
-# # 추후 chat.models에 기록할 예정
-# class chatting(models.Model): ...
+    유저들의 관심사를 키워드로 저장
+    :김태홍, 장성수, 21.11.30
+    """
+    regist_user = models.ForeignKey(
+        "User",
+        related_name="registered by user and user id",
+        on_delete=models.CASCADE,
+        db_column="factory_owner_id"
+    )
+    keyword = models.CharField(
+        help_text="keyword for recommandation",
+        max_length=20
+    )
