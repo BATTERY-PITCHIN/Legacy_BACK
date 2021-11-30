@@ -8,17 +8,17 @@ class FounderSerializer(serializers.ModelSerializer):
 
 class FactorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Factory
+        model = FactoryOwner
         fields = '__all__'
 
-class Founde_EstSerializer(serializers.ModelSerializer):
+class FoundeEstSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Founder_Est
+        model = FounderEstimate
         fields = '__all__'
 
-class Factory_IntrodSerializer(serializers.ModelSerializer):
+class FactoryInfoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Factory_Introd
+        model = FactoryInformation
         fields = '__all__'
 
 # class ConnectedSerializer(serializers.ModelSerializer):
@@ -26,3 +26,7 @@ class Factory_IntrodSerializer(serializers.ModelSerializer):
 #         model = Connected
 #         fields = ['__all__']
 
+class KeywordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = KeywordList
+        fields = ['user_id','keyword']

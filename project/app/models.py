@@ -227,11 +227,11 @@ class KeywordList(models.Model):
     """
     user_id = models.ForeignKey(
         "User",
-        related_name="user",
         on_delete=models.CASCADE,
         db_column="user_id"
     )
     keyword = models.CharField(
         help_text="keyword for recommandation",
-        max_length=20
+        max_length=20,
+        # null=False
     )
