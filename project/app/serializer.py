@@ -11,7 +11,7 @@ class FactorySerializer(serializers.ModelSerializer):
         model = FactoryOwner
         fields = '__all__'
 
-class FoundeEstSerializer(serializers.ModelSerializer):
+class FounderEstSerializer(serializers.ModelSerializer):
     class Meta:
         model = FounderEstimate
         fields = '__all__'
@@ -21,7 +21,7 @@ class FactoryInfoSerializer(serializers.ModelSerializer):
         model = FactoryInformation
         fields = '__all__'
 
-class ListFoundeEstSerializer(serializers.ModelSerializer):
+class ListFounderEstSerializer(serializers.ModelSerializer):
     class Meta:
         model = FounderEstimate
         fields = ['founder_id', 'title', 'category', 'keyword']
