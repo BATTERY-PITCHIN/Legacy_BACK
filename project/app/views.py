@@ -64,24 +64,54 @@ class RecommendView(APIView):
     def get(self, request, user_id):
         keyword = KeywordList.objects.filter(user_id=user_id)
         serializer = KeywordSerializer(keyword, many=True)
+        print(serializer.data)
         for data in serializer.data:
             if data['job'] == 'F':  # Founder
-                list = FactoryInformation.objects.filter(keyword=data['keyword'])
-                result = ListFactoryInfoSerializer(list, many=True)
+                recommend_list = FactoryInformation.objects.filter(keyword=data['keyword'])
+                result = ListFactoryInfoSerializer(recommend_list, many=True)
                 return Response(result.data, status=200)
             elif data['job'] == 'FO':  # Factory Owner
-                list = FounderEstimate.objects.filter(keyword=data['keyword'])
-                result = ListFoundeEstSerializer(list, many=True)
+                print(data['keyword'])
+                recommend_list = FounderEstimate.objects.filter(keyword=data['keyword'])
+                result = ListFounderEstSerializer(recommend_list, many=True)
                 return Response(result.data, status=200)
             else:
                 return Response(status=500)
         return Response(status=200)
 
 
+class FounderEstView(APIView):
+    def get(self, request):
+        output = [
+            {"id": output.id, 
+            "name": output.name}
+        for output in FounderEstimate.objects.all()]
+
+        return Response(output, status=200)
+
+    def post(self, request):
+        serializer = FounderEstSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
 
 
+class FactoryInfoView(APIView): 
+    def get(self, request):
+        output = [
+            {"id": output.id, 
+            "name": output.name}
+        for output in FounderEstimate.objects.all()]
 
+        return Response(output, status=200)
 
+    def post(self, request):
+        serializer = FounderEstSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
 
 
 
