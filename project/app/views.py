@@ -116,8 +116,6 @@ class FactoryInfoView(APIView):
 
 
 
-
-
 """
 **STATUS CODE**
 HTTP_200_OK
