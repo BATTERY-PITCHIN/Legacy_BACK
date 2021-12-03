@@ -4,6 +4,9 @@ from . models import  *
 from . serializer import *
 from rest_framework.response import Response
 
+# TODO: 모든 뷰 get 함수 수정하기 -> 어떤게 보여지는지에 따라 달라질듯
+
+
 # Create your views here.
 class FounderView(APIView):
     def get(self, request):
@@ -62,15 +65,21 @@ class KeywordView(APIView):
 
 class RecommendView(APIView):
     def get(self, request, user_id):
+        """
+        `추천 리스트 받는 뷰`
+        """
+        # 사용자가 설정한 keyword로 부터 keyword 받아옴
         keyword = KeywordList.objects.filter(user_id=user_id)
         serializer = KeywordSerializer(keyword, many=True)
-        print(serializer.data)
-        for data in serializer.data:
-            if data['job'] == 'F':  # Founder
+        # print(serializer.data)
+
+        for data in serializer.data: # 사용자 데이터중 직업에 따라 보여지는 뷰 다르게 생성
+            if data['job'] == 'F':     # Founder 일때
+                # 키워드를 통해 Factory 키워드 중 하나 선정 해서 
                 recommend_list = FactoryInformation.objects.filter(keyword=data['keyword'])
                 result = ListFactoryInfoSerializer(recommend_list, many=True)
                 return Response(result.data, status=200)
-            elif data['job'] == 'FO':  # Factory Owner
+            elif data['job'] == 'FO':  # Factory Owner 일때
                 print(data['keyword'])
                 recommend_list = FounderEstimate.objects.filter(keyword=data['keyword'])
                 result = ListFounderEstSerializer(recommend_list, many=True)
@@ -83,8 +92,9 @@ class RecommendView(APIView):
 class FounderEstView(APIView):
     def get(self, request):
         output = [
-            {"id": output.id, 
-            "name": output.name}
+            {"title": output.id, 
+            "item_name": output.name,
+            "keyword": output.keyword}
         for output in FounderEstimate.objects.all()]
 
         return Response(output, status=200)
@@ -100,8 +110,9 @@ class FounderEstView(APIView):
 class FactoryInfoView(APIView): 
     def get(self, request):
         output = [
-            {"id": output.id, 
-            "name": output.name}
+            {"title": output.id, 
+            "factoryowner_id": output.name,
+            "keyword": output.keyword}
         for output in FounderEstimate.objects.all()]
 
         return Response(output, status=200)
@@ -112,7 +123,6 @@ class FactoryInfoView(APIView):
             serializer.save()
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
-
 
 
 
