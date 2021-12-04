@@ -92,8 +92,8 @@ class RecommendView(APIView):
 class FounderEstView(APIView):
     def get(self, request):
         output = [
-            {"title": output.id, 
-            "item_name": output.name,
+            {"title": output.title, 
+            "item_name": output.item_name,
             "keyword": output.keyword}
         for output in FounderEstimate.objects.all()]
 
@@ -110,8 +110,8 @@ class FounderEstView(APIView):
 class FactoryInfoView(APIView): 
     def get(self, request):
         output = [
-            {"title": output.id, 
-            "factoryowner_id": output.name,
+            {"title": output.title, 
+            "factoryowner_id": output.factoryowner_id,
             "keyword": output.keyword}
         for output in FounderEstimate.objects.all()]
 
