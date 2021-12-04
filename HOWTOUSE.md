@@ -30,7 +30,7 @@ using django
 
 3. install require pakages
 
-   `$ python install -m requirments.txt`
+   `$ pip install -r requirments.txt`
 
 4. install redis for chatting apps
 
