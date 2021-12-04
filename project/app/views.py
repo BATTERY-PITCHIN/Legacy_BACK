@@ -99,8 +99,7 @@ class FounderEstView(APIView):
 class FactoryInfoView(APIView): 
     def get(self, request):
         output = [
-            {"title": output.title, 
-            "factoryowner_id": output.factoryowner_id,
+            {"title": output.title,
             "keyword": output.keyword}
         for output in FactoryInformation.objects.all()]
 
