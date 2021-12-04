@@ -50,7 +50,7 @@ using django
 
 5. start django
 
-   - python manage.py makemigrations
+   - python manage.py makemigrations app
 
    - python manage.py migrate
 
