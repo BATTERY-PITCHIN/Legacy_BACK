@@ -25,18 +25,6 @@ class FactoryInfoSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ListFounderEstSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = FounderEstimate
-        fields = ['founder_id', 'title', 'category', 'keyword']
-
-
-class ListFactoryInfoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = FactoryInformation
-        fields = ['factoryowner_id', 'title', 'keyword']
-
-
 class KeywordSerializer(serializers.ModelSerializer):
     class Meta:
         model = KeywordList

@@ -8,6 +8,9 @@ class User(models.Model):
 
     유저 모델을 베이스로 창업주와 공장주 테이블을 상속
     :김태홍,2021.11.30
+
+    add information
+    :김태홍, 2021.12.05
     """
     id = models.CharField(
         help_text="User ID",
@@ -39,6 +42,9 @@ class User(models.Model):
         max_length=20,
         blank=False,
         null=False
+    )
+    information = models.TextField(
+        help_text="User Introduction"
     )
     # 사업자 번호(숫자), 계좌번호(숫자) 추가 요망
 
@@ -86,33 +92,6 @@ class FactoryOwner(User):
     # 공장 등록 번호(숫자) 추후 추가 요망
 
 
-class ContactUsers(models.Model):
-    """
-    `컨택 테이블`
-
-    공장주와 창업주간 컨택이 된 사람들을 관리하기위한 테이블
-    :김태홍, 장성수, 21.11.30
-    """
-    founder = models.ForeignKey(
-        "Founder",
-        related_name="founder_id",
-        on_delete=models.CASCADE,
-        db_column="founder"
-    )
-    factoryOwner = models.ForeignKey(
-        "FactoryOwner",
-        related_name="factory_owner_id",
-        on_delete=models.CASCADE,
-        db_column="factoryOwner"
-    )
-    start_date = models.DateField(
-        help_text="start date",
-        blank=False,
-        null=False
-    )
-    end_date  = models.DateField(
-        help_text="end date"
-    )
 
 
 class FounderEstimate(models.Model):
@@ -240,4 +219,33 @@ class KeywordList(models.Model):
         max_length=10,
         null=False,
         blank=False
+    )
+
+
+class ContactUsers(models.Model):
+    """
+    `컨택 테이블`
+
+    공장주와 창업주간 컨택이 된 사람들을 관리하기위한 테이블
+    :김태홍, 장성수, 21.11.30
+    """
+    founder = models.ForeignKey(
+        "Founder",
+        related_name="founder_id",
+        on_delete=models.CASCADE,
+        db_column="founder"
+    )
+    factoryOwner = models.ForeignKey(
+        "FactoryOwner",
+        related_name="factory_owner_id",
+        on_delete=models.CASCADE,
+        db_column="factoryOwner"
+    )
+    start_date = models.DateField(
+        help_text="start date",
+        blank=False,
+        null=False
+    )
+    end_date  = models.DateField(
+        help_text="end date"
     )

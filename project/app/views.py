@@ -10,12 +10,10 @@ from rest_framework.response import Response
 # Create your views here.
 class FounderView(APIView):
     def get(self, request):
-        output = [
-            {"id": output.id, 
-            "name": output.name}
-        for output in Founder.objects.all()]
+        founder = Founder.objects.all()
+        serializer = FounderSerializer(founder, many=True)
 
-        return Response(output, status=200)
+        return Response(serializer.data, status=200)
 
     def post(self, request):
         serializer = FounderSerializer(data=request.data)
@@ -27,12 +25,10 @@ class FounderView(APIView):
 
 class FactoryView(APIView):
     def get(self, request):
-        output = [
-            {"id": output.id, 
-            "name": output.name}
-        for output in FactoryOwner.objects.all()]
+        factory = FactoryOwner.objects.all()
+        serializer = FactorySerializer(factory, many=True)
 
-        return Response(output, status=200)
+        return Response(serializer.data, status=200)
 
     def post(self, request):
         serializer = FactorySerializer(data=request.data)
@@ -43,6 +39,12 @@ class FactoryView(APIView):
 
 
 class KeywordView(APIView):
+    def get(self, request):
+        keyword = KeywordList.objects.all()
+        serializer = KeywordSerializer(keyword, many=True)
+
+        return Response(serializer.data, status=200)
+
     def post(self, request):
         serializer = KeywordSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
@@ -80,13 +82,10 @@ class RecommendView(APIView):
 
 class FounderEstView(APIView):
     def get(self, request):
-        output = [
-            {"title": output.title, 
-            "item_name": output.item_name,
-            "keyword": output.keyword}
-        for output in FounderEstimate.objects.all()]
+        estimate = FounderEstimate.objects.all()
+        serializer = FounderEstSerializer(estimate, many=True)
 
-        return Response(output, status=200)
+        return Response(serializer.data, status=200)
 
     def post(self, request):
         serializer = FounderEstSerializer(data=request.data)
@@ -98,12 +97,10 @@ class FounderEstView(APIView):
 
 class FactoryInfoView(APIView): 
     def get(self, request):
-        output = [
-            {"title": output.title,
-            "keyword": output.keyword}
-        for output in FactoryInformation.objects.all()]
+        infomation = FactoryInformation.objects.all()
+        serializer = FactoryInfoSerializer(infomation, many=True)
 
-        return Response(output, status=200)
+        return Response(serializer.data, status=200)
 
     def post(self, request):
         serializer = FactoryInfoSerializer(data=request.data)
