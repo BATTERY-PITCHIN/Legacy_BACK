@@ -113,12 +113,12 @@ class FactoryInfoView(APIView):
             {"title": output.title, 
             "factoryowner_id": output.factoryowner_id,
             "keyword": output.keyword}
-        for output in FounderEstimate.objects.all()]
+        for output in FactoryInformation.objects.all()]
 
         return Response(output, status=200)
 
     def post(self, request):
-        serializer = FounderEstSerializer(data=request.data)
+        serializer = FactoryInfoSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status=201)
