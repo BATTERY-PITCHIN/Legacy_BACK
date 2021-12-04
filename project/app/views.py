@@ -86,7 +86,7 @@ class RecommendView(APIView):
                 return Response(result.data, status=200)
             else:
                 return Response(status=500)
-        return Response(status=200)
+        return Response([], status=200)
 
 
 class FounderEstView(APIView):
