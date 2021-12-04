@@ -65,12 +65,12 @@ class RecommendView(APIView):
             if data['job'] == 'founder':     # Founder 일때
                 # 키워드를 통해 Factory 키워드 중 하나 선정 해서 
                 recommend_list = FactoryInformation.objects.filter(keyword=data['keyword']).values()
-                result = FactoryInfoSerializer(recommend_list, many=True)
+                result = FactoryInfoSerializer(recommend_list, many=True).values()
                 return Response(result.data, status=200)
             elif data['job'] == 'factory':  # Factory Owner 일때
                 print(data['keyword'])
                 recommend_list = FounderEstimate.objects.filter(keyword=data['keyword']).values()
-                result = FounderEstSerializer(recommend_list, many=True)
+                result = FounderEstSerializer(recommend_list, many=True).values()
                 return Response(result.data, status=200)
             else:
                 print("cannot recommand")
