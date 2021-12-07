@@ -110,6 +110,22 @@ class FactoryInfoView(APIView):
         return Response(serializer.errors, status=400)
 
 
+class FounderEstDetailView(APIView):
+    def get(self, request, est_id):
+        estimate = FounderEstimate.objects.get(founder_id=est_id)
+        serializer = FounderEstSerializer(estimate, many=True)
+
+        return Response(serializer.data, status=200)
+
+
+class FactoryInfoDetailView(APIView):
+    def get(self, request, info_id):
+        estimate = FounderEstimate.objects.get(factoryowner_id=info_id)
+        serializer = FounderEstSerializer(estimate, many=True)
+
+        return Response(serializer.data, status=200)
+
+
 
 """
 **STATUS CODE**
