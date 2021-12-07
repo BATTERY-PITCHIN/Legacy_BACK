@@ -5,8 +5,8 @@ from . serializer import *
 from rest_framework.response import Response
 from django.db.models import Q
 
-# TODO: 모든 뷰 get 함수 수정하기 -> 어떤게 보여지는지에 따라 달라질듯
-
+# TODO: 모든 뷰 get 함수 수정하기 -> 어떤게 보여지는지에 따라 달라질듯 -> clear
+# NOTE: 각 클래스 별 정보는 app/urls.py에 나와있음
 
 # Create your views here.
 class FounderView(APIView):
@@ -133,6 +133,7 @@ class UserDetailView(APIView):
         serializer = UserSerializer(information, many=True)
 
         return Response(serializer.data, status=200)
+
 
 
 """
