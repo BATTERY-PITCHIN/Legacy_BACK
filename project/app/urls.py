@@ -6,10 +6,9 @@ from . views import *
 urlpatterns = [
     path('keyword/',KeywordView.as_view()),
     path('recommend/<str:user_id>', RecommendView.as_view()),
+    path('user/<str:user_id>', UserDetailView.as_view()),
     path('founder/', FounderView.as_view()),
-    path('founder/<str:founder_id>', FounderDetailView.as_view()),
     path('factory/', FactoryView.as_view()),
-    path('factory/<str:factory_id>', FactoryOwnerDetailView.as_view()),
     path('founder/estimate/', FounderEstView.as_view()),
     path('founder/estimate/<int:pk>/', FounderEstDetailView.as_view()),
     path('factory/information/', FactoryInfoView.as_view()),
