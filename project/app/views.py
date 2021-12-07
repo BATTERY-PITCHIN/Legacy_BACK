@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from . models import  *
 from . serializer import *
 from rest_framework.response import Response
+from django.db.models import Q
 
 # TODO: 모든 뷰 get 함수 수정하기 -> 어떤게 보여지는지에 따라 달라질듯
 
@@ -111,17 +112,17 @@ class FactoryInfoView(APIView):
 
 
 class FounderEstDetailView(APIView):
-    def get(self, request, id):
-        estimate = FounderEstimate.objects.filter(id=id)
+    def get(self, request, pk):
+        estimate = FounderEstimate.objects.filter(pk=pk)
         serializer = FounderEstSerializer(estimate, many=True)
 
         return Response(serializer.data, status=200)
 
 
 class FactoryInfoDetailView(APIView):
-    def get(self, request, id):
-        estimate = FounderEstimate.objects.filter(id=id)
-        serializer = FounderEstSerializer(estimate, many=True)
+    def get(self, request, pk):
+        information = FactoryInformation.objects.filter(pk=pk)
+        serializer = FactoryInfoSerializer(information, many=True)
 
         return Response(serializer.data, status=200)
 
