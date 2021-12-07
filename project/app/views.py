@@ -129,7 +129,7 @@ class FactoryInfoDetailView(APIView):
 
 class FounderDetailView(APIView):
     def get(self, request, founder_id):
-        information = Founder.objects.filter(founder_id=founder_id)
+        information = Founder.objects.filter(id=founder_id)
         serializer = FounderSerializer(information, many=True)
 
         return Response(serializer.data, status=200)
@@ -137,7 +137,7 @@ class FounderDetailView(APIView):
 
 class FactoryOwnerDetailView(APIView):
     def get(self, request, factory_id):
-        information = FactoryOwner.objects.filter(factory_id=factory_id)
+        information = FactoryOwner.objects.filter(id=factory_id)
         serializer = FactorySerializer(information, many=True)
 
         return Response(serializer.data, status=200)
