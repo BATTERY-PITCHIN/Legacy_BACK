@@ -92,8 +92,6 @@ class FactoryOwner(User):
     # 공장 등록 번호(숫자) 추후 추가 요망
 
 
-
-
 class FounderEstimate(models.Model):
     """
         `견적서 테이블`
