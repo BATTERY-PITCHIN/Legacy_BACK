@@ -119,7 +119,7 @@ class FounderEstimate(models.Model):
     )
     title = models.CharField(
         help_text="estimate title",
-        max_length=30,
+        max_length=200,
         blank=False,
         null=False 
     )
@@ -177,7 +177,7 @@ class FactoryInformation(models.Model):
     )
     title = models.CharField(
         help_text="estimate title",
-        max_length=30,
+        max_length=200,
         blank=False,
         null=False 
     )
