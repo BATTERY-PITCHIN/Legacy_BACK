@@ -65,13 +65,12 @@ class RecommendView(APIView):
         # print(serializer.data)
 
         for data in serializer.data: # 사용자 데이터중 직업에 따라 보여지는 뷰 다르게 생성
-            if data['job'] == 'founder':     # Founder 일때
+            if data['job'].lower() == 'founder'.lower():     # Founder 일때
                 # 키워드를 통해 Factory 키워드 중 하나 선정 해서 
                 recommend_list = FactoryInformation.objects.filter(keyword=data['keyword'])
                 result = FactoryInfoSerializer(recommend_list, many=True)
                 return Response(result.data, status=200)
-            elif data['job'] == 'factory':  # Factory Owner 일때
-                print(data['keyword'])
+            elif data['job'].lower() == 'factory'.lower():  # Factory Owner 일때
                 recommend_list = FounderEstimate.objects.filter(keyword=data['keyword'])
                 result = FounderEstSerializer(recommend_list, many=True)
                 return Response(result.data, status=200)
